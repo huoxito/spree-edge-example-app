@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/huoxito/spree.git
-  revision: 3ff67523057ef8d462210cf1a1f9a7016e491073
+  revision: efd5edc8b70fa87aa666937f30df2a35c9a3b1f1
   branch: edge-on-heroku
   specs:
     spree (2.1.0.beta)
