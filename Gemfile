@@ -32,6 +32,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'puma'
+gem 'thin'
 gem 'spree', github: 'spree/spree'
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
