@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/spree/spree.git
-  revision: 1be697eb001ad42723c75b826ea1cb08f1dd37ac
+  remote: git://github.com/huoxito/spree.git
+  revision: 3ff67523057ef8d462210cf1a1f9a7016e491073
+  branch: edge-on-heroku
   specs:
     spree (2.1.0.beta)
       spree_api (= 2.1.0.beta)
