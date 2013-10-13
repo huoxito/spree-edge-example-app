@@ -11,23 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927014230) do
+ActiveRecord::Schema.define(version: 20131013230740) do
 
-  create_table "spree_activators", force: true do |t|
-    t.string   "description"
-    t.datetime "expires_at"
-    t.datetime "starts_at"
-    t.string   "name"
-    t.string   "event_name"
-    t.string   "type"
-    t.integer  "usage_limit"
-    t.string   "match_policy", default: "all"
-    t.string   "code"
-    t.boolean  "advertise",    default: false
-    t.string   "path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -54,8 +41,6 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "source_type"
     t.integer  "adjustable_id"
     t.string   "adjustable_type"
-    t.integer  "originator_id"
-    t.string   "originator_type"
     t.decimal  "amount",          precision: 10, scale: 2
     t.string   "label"
     t.boolean  "mandatory"
@@ -63,6 +48,7 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+    t.integer  "order_id"
   end
 
   add_index "spree_adjustments", ["adjustable_id"], name: "index_adjustments_on_order_id", using: :btree
@@ -107,7 +93,7 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "iso3"
     t.string   "name"
     t.integer  "numcode"
-    t.boolean  "states_required", default: true
+    t.boolean  "states_required", default: false
     t.datetime "updated_at"
   end
 
@@ -118,9 +104,6 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "last_digits"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "start_month"
-    t.string   "start_year"
-    t.string   "issue_number"
     t.integer  "address_id"
     t.string   "gateway_customer_profile_id"
     t.string   "gateway_payment_profile_id"
@@ -158,13 +141,16 @@ ActiveRecord::Schema.define(version: 20130927014230) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                null: false
-    t.decimal  "price",           precision: 8, scale: 2, null: false
+    t.integer  "quantity",                                                null: false
+    t.decimal  "price",            precision: 8,  scale: 2,               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
-    t.decimal  "cost_price",      precision: 8, scale: 2
+    t.decimal  "cost_price",       precision: 8,  scale: 2
     t.integer  "tax_category_id"
+    t.decimal  "adjustment_total", precision: 10, scale: 2, default: 0.0
+    t.decimal  "tax_total",        precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",      precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id", using: :btree
@@ -229,6 +215,9 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "currency"
     t.string   "last_ip_address"
     t.integer  "created_by_id"
+    t.decimal  "shipment_total",                  precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "tax_total",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",                     precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_orders", ["completed_at"], name: "index_spree_orders_on_completed_at", using: :btree
@@ -355,6 +344,7 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   add_index "spree_promotion_rules", ["product_group_id"], name: "index_promotion_rules_on_product_group_id", using: :btree
@@ -367,6 +357,21 @@ ActiveRecord::Schema.define(version: 20130927014230) do
 
   add_index "spree_promotion_rules_users", ["promotion_rule_id"], name: "index_promotion_rules_users_on_promotion_rule_id", using: :btree
   add_index "spree_promotion_rules_users", ["user_id"], name: "index_promotion_rules_users_on_user_id", using: :btree
+
+  create_table "spree_promotions", force: true do |t|
+    t.string   "description"
+    t.datetime "expires_at"
+    t.datetime "starts_at"
+    t.string   "name"
+    t.string   "type"
+    t.integer  "usage_limit"
+    t.string   "match_policy", default: "all"
+    t.string   "code"
+    t.boolean  "advertise",    default: false
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "spree_properties", force: true do |t|
     t.string   "name"
@@ -412,7 +417,7 @@ ActiveRecord::Schema.define(version: 20130927014230) do
   create_table "spree_shipments", force: true do |t|
     t.string   "tracking"
     t.string   "number"
-    t.decimal  "cost",              precision: 8, scale: 2
+    t.decimal  "cost",              precision: 8,  scale: 2
     t.datetime "shipped_at"
     t.integer  "order_id"
     t.integer  "address_id"
@@ -420,6 +425,9 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stock_location_id"
+    t.decimal  "adjustment_total",  precision: 10, scale: 2, default: 0.0
+    t.decimal  "tax_total",         precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",       precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_shipments", ["number"], name: "index_shipments_on_number", using: :btree

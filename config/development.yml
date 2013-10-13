@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+  database: spree_edge
+  username: huoxito
+
+test:
+  adapter: postgresql
+  database: spree_edge
+  username: huoxito
+
+production:
+  adapter: postgresql
+  database: spree_edge
+  username: huoxito
