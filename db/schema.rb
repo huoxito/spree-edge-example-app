@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927014230) do
+ActiveRecord::Schema.define(version: 20131017131203) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "spree_activators", force: true do |t|
     t.string   "description"
@@ -107,7 +110,7 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "iso3"
     t.string   "name"
     t.integer  "numcode"
-    t.boolean  "states_required", default: true
+    t.boolean  "states_required", default: false
     t.datetime "updated_at"
   end
 
@@ -118,9 +121,6 @@ ActiveRecord::Schema.define(version: 20130927014230) do
     t.string   "last_digits"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "start_month"
-    t.string   "start_year"
-    t.string   "issue_number"
     t.integer  "address_id"
     t.string   "gateway_customer_profile_id"
     t.string   "gateway_payment_profile_id"

@@ -33,5 +33,5 @@ group :doc do
 end
 
 gem 'thin'
-gem 'spree', github: 'huoxito/spree', branch: 'edge-on-heroku'
-gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
+gem 'spree', github: 'spree/spree', branch: '2-1-stable'
+gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '2-1-stable'
