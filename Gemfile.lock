@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/spree/spree-adyen.git
-  revision: efc1de73d174eaadc756ed95f507f18115ae939b
+  revision: ef902617cc2eac38224ec28f03fda5d82f624779
   specs:
     spree-adyen (0.0.1)
       adyen (~> 1.4.0)
