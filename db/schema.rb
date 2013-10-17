@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131017131203) do
+ActiveRecord::Schema.define(version: 20131017135250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "adyen_notifications", force: true do |t|
+    t.boolean  "live",                             default: false, null: false
+    t.string   "event_code",            limit: 40,                 null: false
+    t.string   "psp_reference",         limit: 50,                 null: false
+    t.string   "original_reference"
+    t.string   "merchant_reference",                               null: false
+    t.string   "merchant_account_code",                            null: false
+    t.datetime "event_date",                                       null: false
+    t.boolean  "success",                          default: false, null: false
+    t.string   "payment_method"
+    t.string   "operations"
+    t.text     "reason"
+    t.string   "currency",              limit: 3
+    t.integer  "value"
+    t.boolean  "processed",                        default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "adyen_notifications", ["psp_reference", "event_code", "success"], name: "adyen_notification_uniqueness", unique: true, using: :btree
 
   create_table "spree_activators", force: true do |t|
     t.string   "description"

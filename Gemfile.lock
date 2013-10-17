@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/spree/spree-adyen.git
+  revision: efc1de73d174eaadc756ed95f507f18115ae939b
+  specs:
+    spree-adyen (0.0.1)
+      adyen (~> 1.4.0)
+      spree (~> 2.1.2)
+
+GIT
   remote: git://github.com/spree/spree.git
   revision: 20d2233fd0296b5bb26624b05af7e49cafcd818d
   branch: 2-1-stable
@@ -104,6 +112,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts_as_list (0.2.0)
       activerecord (>= 3.0)
+    adyen (1.4.0)
     arel (4.0.0)
     atomic (1.1.14)
     awesome_nested_set (3.0.0.rc.2)
@@ -274,6 +283,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   spree!
+  spree-adyen!
   spree_auth_devise!
   thin
   turbolinks
