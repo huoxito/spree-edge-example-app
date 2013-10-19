@@ -20,7 +20,8 @@ module Spree
           :statement => "Order # #{gateway_options[:order_id]}" },
 
         { :holder_name => "#{source.first_name} #{source.last_name}",
-          :number => source.number,
+          # :number => source.number,
+          :number => "4111111111111111",
           :cvc => source.verification_value,
           :expiry_month => source.month,
           :expiry_year => source.year }
