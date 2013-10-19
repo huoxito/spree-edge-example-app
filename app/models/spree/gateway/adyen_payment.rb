@@ -7,8 +7,6 @@ module Spree
     end
 
     def authorize(amount, source, gateway_options = {})
-      logger.debug source
-
       provider.authorise_payment(
         gateway_options[:order_id],
 
