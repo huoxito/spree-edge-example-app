@@ -7,6 +7,8 @@ module Spree
     end
 
     def authorize(amount, source, gateway_options = {})
+      logger.info "heyyou -> #{source}"
+
       provider.authorise_payment(
         gateway_options[:order_id],
 
@@ -20,9 +22,9 @@ module Spree
         { :holder_name => "#{source.first_name} #{source.last_name}",
           # :number => source.number,
           :number => "4111111111111111",
-          :cvc => source.verification_value,
-          :expiry_month => source.month,
-          :expiry_year => source.year }
+          :cvc => "737",
+          :expiry_month => "06",
+          :expiry_year => "2016" }
       )
     end
 
