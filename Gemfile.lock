@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/spree/spree-adyen.git
-  revision: 1ebb660f04efd5f232441c7ed8f2422fa91335a0
+  revision: ad79cb6a400d11765a9baffb480a20ef91397ab5
   specs:
     spree-adyen (0.0.1)
       adyen (~> 1.4.0)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/spree/spree.git
-  revision: bfbb99a715d7d453f3423a673c15612ab1c57832
+  revision: 73a81281a7c51de943e56fa964de2c0c3a8f20e2
   branch: 2-1-stable
   specs:
     spree (2.1.3.beta)
@@ -31,14 +31,14 @@ GIT
     spree_cmd (2.1.3.beta)
       thor (~> 0.14)
     spree_core (2.1.3.beta)
-      activemerchant (= 1.39.2)
+      activemerchant (= 1.40.0)
       acts_as_list (= 0.2.0)
       awesome_nested_set (~> 3.0.0.rc.2)
       aws-sdk (= 1.11.1)
       cancan (~> 1.6.10)
       deface (~> 1.0.0)
       ffaker (~> 1.16)
-      highline (= 1.6.18)
+      highline (~> 1.6.18)
       httparty (~> 0.11)
       json (~> 1.7)
       kaminari (~> 0.14.1)
@@ -87,7 +87,7 @@ GEM
     active_utils (2.0.1)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.39.2)
+    activemerchant (1.40.0)
       active_utils (~> 2.0, >= 2.0.1)
       activesupport (>= 2.3.14, < 5.0.0)
       builder (>= 2.1.2, < 4.0.0)
@@ -154,7 +154,7 @@ GEM
     eventmachine (1.0.3)
     execjs (2.0.2)
     ffaker (1.20.0)
-    highline (1.6.18)
+    highline (1.6.20)
     hike (1.2.3)
     httparty (0.12.0)
       json (~> 1.8)
